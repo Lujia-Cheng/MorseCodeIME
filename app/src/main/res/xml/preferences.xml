@@ -1,0 +1,29 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <!-- Text Box Preference -->
+    <EditTextPreference
+        android:key="key_text_box"
+        android:title="Text Box Preference"
+        android:summary="Enter some text for testing"
+        android:dialogTitle="Enter Text"
+        android:defaultValue=""
+        android:inputType="text"
+        android:singleLine="true" />
+
+    <!-- Slider Preference -->
+    <PreferenceCategory
+        android:title="Speed Settings">
+
+        <SeekBarPreference
+            android:key="key_speed_slider"
+            android:title="Speed"
+            android:summary="in words per minute (5-30)"
+            android:defaultValue="18"
+            android:min="5"
+            android:max="30" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

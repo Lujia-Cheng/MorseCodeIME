@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    android:orientation="vertical">
+
+    <TableRow>
+
+        <Button
+            android:text="49"
+            android:keyEdgeFlags="left"
+            android:keyLabel="1" />
+
+        <Button
+            android:text="50"
+            android:keyLabel="2" />
+
+        <Button
+            android:text="51"
+            android:keyLabel="3" />
+
+        <Button
+            android:text="52"
+            android:keyLabel="4" />
+
+        <Button
+            android:text="53"
+            android:keyEdgeFlags="right"
+            android:keyLabel="5" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:text="54"
+            android:keyEdgeFlags="left"
+            android:keyLabel="6" />
+
+        <Button
+            android:text="55"
+            android:keyLabel="7" />
+
+        <Button
+            android:text="56"
+            android:keyLabel="8" />
+
+        <Button
+            android:text="57"
+            android:keyLabel="9" />
+
+        <Button
+            android:text="48"
+            android:keyEdgeFlags="right"
+            android:keyLabel="0" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:text="-5"
+            android:isRepeatable="true"
+            android:keyWidth="40%p"
+            android:keyEdgeFlags="left"
+            android:keyLabel="DELETE" />
+
+        <Button
+            android:text="10"
+            android:keyWidth="60%p"
+            android:keyEdgeFlags="right"
+            android:keyLabel="ENTER" />
+    </TableRow>
+
+
+</TableLayout>
