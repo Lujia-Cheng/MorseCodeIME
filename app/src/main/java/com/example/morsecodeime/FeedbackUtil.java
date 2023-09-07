@@ -3,51 +3,40 @@ package com.example.morsecodeime;
 import static java.lang.Thread.sleep;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Vibrator;
 import android.view.View;
-import android.app.Activity;
-import android.content.SharedPreferences;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FeedbackActivity extends AppCompatActivity {
+public class FeedbackUtil {
 
-    private static Vibrator vibrator;
     private static long wpm;
     private final long FARNSWORTH_TIMING_CUTOFF = 18;
-    private static final Map<Character, String> translateMap = createMap();
+    private static final Map<Character, String> codeBook = createCharToMorse();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO bump shared preferences to Preferences DataStore
-
-        wpm = 18; // FIXME get from shared preferences
-
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-        CharSequence inputText = "hello world";
-        // playSignalFeedback(inputText);
+    public FeedbackUtil(long wpm) {
+        this.wpm = wpm;
     }
 
-    void playSignalFeedback(CharSequence input) {
+    public ArrayList<Long> charToSignals(char input) {
         final long unit, farnsworthUnit;
-        if (wpm > FARNSWORTH_TIMING_CUTOFF) {
+        ArrayList<Long> signals = new ArrayList<>();
+
+        unit = farnsworthUnit = 1200 / wpm;
+      /*
+      if (wpm > FARNSWORTH_TIMING_CUTOFF) {
             unit = farnsworthUnit = 1200 / wpm;
-        } else {
+
+       } else {
             // Lock unit duration to 18 wpm, but compensate by increasing the gap between characters
             // See https://morsecode.world/international/timing.html or http://www.arrl.org/files/file/Technology/x9004008.pdf for math
             unit = 1200 / FARNSWORTH_TIMING_CUTOFF;
-            farnsworthUnit = unit + 1200 / wpm; // FIXME It's close but wrong
-        }
+            farnsworthUnit = unit + 1200 / wpm; // FIXME Figure out the caculation
+        } */
 
         // Duration of a farnsworth unit (1 dit duration)
         // TODO Differentiate normal timing vs Farnsworth timing
@@ -59,69 +48,28 @@ public class FeedbackActivity extends AppCompatActivity {
         final long interChar = 3 * farnsworthUnit; // the gap between characters (3 times the dit duration) e.g the pause between "a" and "b" in "ab"
         final long space = 7 * farnsworthUnit; // the gap between words (7 times the dit duration) e.g the pause between "a" and "b" in "a b"
 
-        ArrayList<Long> timing = new ArrayList<>();
-
-
-        for (char letter : input.toString().toLowerCase().toCharArray()) {
-
-            String morse = translateMap.getOrDefault(letter,"");
-
-            for (char signal : morse.toCharArray()) {
-                switch (signal) {
-                    case '.':
-                        timing.add(dit);
-                        timing.add(intraChar);
-                        break;
-                    case '-':
-                        timing.add(dah);
-                        timing.add(intraChar);
-                        break;
-
-                }
-            }
-            timing.add(interChar);
-        }
-
-
-        // Add a image to space bar to indicate vibration
-        this.provideFeedback(timing);
-
-
-    }
-
-    private void provideFeedback(ArrayList<Long> timing) {
-        // visual
-        this.flash(findViewById(R.id.space_bar), timing);
-
-        // haptic
-
-        // TODO    vibrator.vibrate(timing.stream().mapToLong(Long::longValue).toArray(), -1);
-    }
-
-    /**
-     * For debugging purposes, flash the space bar to indicate vibration.
-     *
-     * @param view
-     * @param timing
-     */
-    private void flash(View view, ArrayList<Long> timing) {
-
-        boolean on = false;
-        for (long time : timing) {
-            on = !on;
-            view.setBackgroundColor(on ? Color.RED : Color.WHITE);
-
-            try {
-                sleep(time);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        String morse = codeBook.getOrDefault(input, "");
+        for (char ch : morse.toCharArray()) {
+            switch (ch) {
+                case '.':
+                    signals.add(dit);
+                    signals.add(intraChar);
+                    break;
+                case '-':
+                    signals.add(dah);
+                    signals.add(intraChar);
+                    break;
+                default:
+                    break;
             }
 
         }
+        signals.set(signals.size() - 1, interChar);
+        return signals;
+
     }
 
-
-    private static Map<Character, String> createMap() {
+    private static Map<Character, String> createCharToMorse() {
         Map<Character, String> map = new HashMap<>();
         map.put('a', ".-");
         map.put('b', "-...");

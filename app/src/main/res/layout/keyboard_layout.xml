@@ -82,6 +82,13 @@
         android:gravity="center"
         android:weightSum="10">
 
+
+        <Button
+            android:id="@+id/indicator"
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:visibility="invisible" />
+
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -135,6 +142,11 @@
             android:layout_weight="1"
             android:tag="alphanumeric"
             android:text="l" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:visibility="invisible" />
     </TableRow>
 
     <TableRow
@@ -148,8 +160,9 @@
             android:id="@+id/shift"
             android:layout_width="0dp"
             android:layout_weight="1.25"
+            android:icon="@android:drawable/arrow_up_float"
             android:tag="shift"
-            android:icon="@android:drawable/arrow_up_float" />
+            android:text="⇧" />
 
         <View
             android:layout_width="0dp"
@@ -208,7 +221,7 @@
             android:layout_weight="1.25"
             android:icon="@android:drawable/ic_delete"
             android:tag="backspace"
-            />
+            android:text="⌫" />
     </TableRow>
 
 
