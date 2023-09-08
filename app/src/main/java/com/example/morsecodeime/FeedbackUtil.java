@@ -35,8 +35,10 @@ public class FeedbackUtil {
             // Lock unit duration to 18 wpm, but compensate by increasing the gap between characters
             // See https://morsecode.world/international/timing.html or http://www.arrl.org/files/file/Technology/x9004008.pdf for math
             unit = 1200 / FARNSWORTH_TIMING_CUTOFF;
-            farnsworthUnit = unit + 1200 / wpm; // FIXME Figure out the caculation
-        } */
+            farnsworthUnit = unit + 1200 / wpm; // FIXME Figure out the calculation
+        }
+
+        */
 
         // Duration of a farnsworth unit (1 dit duration)
         // TODO Differentiate normal timing vs Farnsworth timing
@@ -58,6 +60,9 @@ public class FeedbackUtil {
                 case '-':
                     signals.add(dah);
                     signals.add(intraChar);
+                    break;
+                case ' ':
+                    signals.add(space);
                     break;
                 default:
                     break;

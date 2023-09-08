@@ -87,6 +87,7 @@
             android:id="@+id/indicator"
             android:layout_width="0dp"
             android:layout_weight=".5"
+            android:text=""
             android:visibility="invisible" />
 
         <Button

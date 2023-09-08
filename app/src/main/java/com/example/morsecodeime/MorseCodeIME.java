@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -25,6 +26,9 @@ public class MorseCodeIME extends InputMethodService implements OnClickListener 
     private long hapticUnitDuration = 100;
     ExecutorService executor;
     View keyboardView;
+    Button indicator;
+
+    int wpm = 5; // TODO demo purpose only: remove before release
 
     /**
      * Called when the input view is created, i.e. when the keyboard is shown.
@@ -61,26 +65,38 @@ public class MorseCodeIME extends InputMethodService implements OnClickListener 
             char ch = ((Button) v).getText().charAt(0);
             this.inputText(ch);
 
-            FeedbackUtil feedback = new FeedbackUtil(7);
+
+            FeedbackUtil feedback = new FeedbackUtil(wpm);
             ArrayList<Long> timing = feedback.charToSignals(ch);
 
-            Button indicator = keyboardView.findViewById(R.id.indicator);
+            indicator = (Button) keyboardView.findViewById(R.id.indicator);
             indicator.setVisibility(View.VISIBLE);
+            Button space = (Button) keyboardView.findViewById(R.id.space_bar);
             executor.execute(() -> {
                 // getSystemService(VIBRATOR_SERVICE);// FIXME haptic feedback
-
 
                 boolean on = false;
                 for (long time : timing) {
                     on = !on;
-                    indicator.setBackgroundColor(on ? Color.WHITE : 0x00cccccc);
-                    //indicator.setVisibility(on ? View.VISIBLE : View.INVISIBLE);
+                    indicator.setBackgroundColor(on ? Color.RED : 0x00cccccc);
+
+
+                    if (on) {   // TODO demo purpose only: remove before release
+                        long unit = time * wpm / 1200;
+                        if (unit < 2) space.setText("dit");
+                        else if (unit > 6) space.setText("space");
+                        else space.setText("dah");
+                    } else {
+                        space.setText("");
+                    }
+
                     try {
                         sleep(time);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                 }
+                space.setText("");
             });
         }
     }
@@ -127,7 +143,6 @@ public class MorseCodeIME extends InputMethodService implements OnClickListener 
                 } else {
                     ic.commitText("", 1);
                 }
-                ic.deleteSurroundingText(1, 0);
                 break;
             case "symbol":
                 this.getLayoutInflater().inflate(R.layout.symbol_layout, null);
@@ -142,6 +157,13 @@ public class MorseCodeIME extends InputMethodService implements OnClickListener 
                 break;
             case "space":
                 ic.commitText(" ", 1);
+                executor.execute(() -> {
+                    try {
+                        sleep(1200 / wpm * 7);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 break;
             case "done":
                 // quit
