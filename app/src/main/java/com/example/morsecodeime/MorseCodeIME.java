@@ -4,16 +4,13 @@ import static java.lang.Thread.sleep;
 
 import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
-import android.os.Handler;
 import android.os.Vibrator;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.TableLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -137,7 +134,7 @@ public class MorseCodeIME extends InputMethodService implements OnClickListener 
         if (ic == null) return;
 
         switch (v.getTag().toString()) {
-            case "shift": // TODO support double click
+            case "shift": // TODO support double click to cap lock
                 capped = !capped;
                 break;
             case "backspace":
@@ -155,7 +152,7 @@ public class MorseCodeIME extends InputMethodService implements OnClickListener 
 
                 break;
             case "emoji":
-                // TODO open emoji keyboard
+                // TODO open emoji board
 
                 break;
             case "space":
@@ -173,7 +170,6 @@ public class MorseCodeIME extends InputMethodService implements OnClickListener 
                 this.requestHideSelf(0);
                 break;
             default:
-                // TODO
                 try {
                     throw new Exception("Unidentified key");
                 } catch (Exception e) {

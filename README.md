@@ -18,14 +18,14 @@ Ever wondered why `SOS` became the universally recognized distress call? It's be
 
 Here's an `S` ( . . . ) for you:
 
-![GIF of "s"](./DevNotes/demo1.webm)
+![GIF of "s"](./DevNotes/demo_s.mp4)
 
 But there's a crucial distinction to be made. The pause between signals (the one between the `dots` in . . . ) differs from the pause between letters, like the one between `S` and `O.`
 
 Let's illustrate this with `SOS`:
 
-![GIF of "SOS"](./DevNotes/demo_sos.webm)
+![GIF of "SOS"](./DevNotes/demo_sos.mp4)
 
 And let's not forget about spacing; spaces come with a pause of 7, ensuringwedontsuffocatewhiletryingtodecodesentenceslikethis:
 
-![GIF of "hi all"](./DevNotes/demo_hi_all.webm)
+![GIF of "hi all"](./DevNotes/demo_hi_all.mp4)
