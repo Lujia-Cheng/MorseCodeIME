@@ -12,9 +12,9 @@ Now, the vast expanse of meticulously crafted guides on this topic can be easily
 
 ### The dit, the dah, and the 1 unit pause in between
 
-You can think of Morse code as a sequence of `bits`, where a `0` represents silence, and a `1` signals a buzz. The key distinction lies in the duration of these signals; a `dit` lasts for 1 single unit `.`, while a `dah` stretches out for 3 units `___`, with 1 unit silence marking the gap between them.
+You can think of Morse code as a sequence of `bits`, where a `0` represents silence, and a `1` signals a buzz. The key distinction lies in the duration of these signals; a `dit` lasts for 1 single unit `.`, while a `dah` stretches out for 3 units `___`, with 1 unit silence marking the gap between them ` `.
 
-Here's an `Q` ( `_.__`) for you and take note of how quickly that `dit` disappears:
+Here's an `Q` ( `_ . _ _`) for you and take note of how quickly that `dit` disappears:
 
 ![GIF of "Q"](./DevNotes/demo_q.gif)
 
