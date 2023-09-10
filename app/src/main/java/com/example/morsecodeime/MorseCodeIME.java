@@ -72,7 +72,7 @@ public class MorseCodeIME extends InputMethodService implements OnClickListener 
             Button space = (Button) keyboardView.findViewById(R.id.space_bar);
             executor.execute(() -> {
                 Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                vibrator.vibrate(timing.stream().mapToLong(Long::longValue).toArray(), -1);
+              //  vibrator.vibrate(timing.stream().mapToLong(Long::longValue).toArray(), -1);
 
 
                 boolean on = false;
