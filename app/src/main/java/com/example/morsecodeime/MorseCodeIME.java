@@ -5,6 +5,7 @@ import static java.lang.Thread.sleep;
 import android.graphics.Color;
 import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -73,7 +74,9 @@ public class MorseCodeIME extends InputMethodService implements OnClickListener 
             indicator.setVisibility(View.VISIBLE);
             Button space = (Button) keyboardView.findViewById(R.id.space_bar);
             executor.execute(() -> {
-                // getSystemService(VIBRATOR_SERVICE);// FIXME haptic feedback
+                Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                vibrator.vibrate(timing.stream().mapToLong(Long::longValue).toArray(), -1);
+
 
                 boolean on = false;
                 for (long time : timing) {
